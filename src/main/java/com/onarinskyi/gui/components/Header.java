@@ -23,7 +23,7 @@ public class Header extends AbstractPageComponent {
 
     public void searchFor(String request, Category category) {
         driver.type(inputSearch, request);
-        driver.selectDropdownOptionByVisibleText(selectSearchType, category.value());
+        driver.selectByVisibleText(selectSearchType, category.value());
         driver.clickOn(buttonSearch);
     }
 }

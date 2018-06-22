@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Scope;
 @Configuration
 public class DriverConfig {
 
-    private WebDriverFactory driverFactory;
+    private final WebDriverFactory driverFactory;
 
     @Autowired
     public DriverConfig(WebDriverFactory driverFactory) {
@@ -21,5 +21,11 @@ public class DriverConfig {
     @Scope("prototype")
     public ThreadLocal<WebDriverDecorator> threadLocal() {
         return ThreadLocal.withInitial(driverFactory::getInitialDriver);
+    }
+
+    @Bean
+    @Scope("prototype")
+    public WebDriverDecorator driver(ThreadLocal<WebDriverDecorator> threadLocal) {
+        return threadLocal.get();
     }
 }
