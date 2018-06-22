@@ -1,4 +1,4 @@
-package test_data.model;
+package com.onarinskyi.gui.model;
 
 public enum Category {
     APPLIANCES("Appliances"),

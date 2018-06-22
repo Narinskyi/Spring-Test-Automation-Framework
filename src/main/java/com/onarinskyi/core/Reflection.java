@@ -62,10 +62,5 @@ public class Reflection {
                 org.openqa.selenium.By.id(findByAnnotation.id());
     }
 
-    public static String getUrlAnnotationValue(Class<?> clazz) {
-        if (clazz.isAnnotationPresent(Url.class)) {
-            return clazz.getAnnotation(Url.class).value();
-        }
-        return "";
-    }
+
 }

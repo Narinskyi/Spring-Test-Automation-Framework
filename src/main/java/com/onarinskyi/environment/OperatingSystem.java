@@ -7,9 +7,9 @@ public enum OperatingSystem {
     WINDOWS,
     MACOS;
 
-    public static OperatingSystem of(String value) {
+    public static OperatingSystem of(String type) {
         return Arrays.stream(OperatingSystem.values())
-                .filter(constant -> constant.name().toLowerCase().contains(value))
+                .filter(constant -> constant.name().toLowerCase().contains(type))
                 .findFirst().orElse(WINDOWS);
     }
 }

@@ -1,6 +1,6 @@
 package com.onarinskyi.driver;
 
-import com.onarinskyi.environment.BrowserType;
+import com.onarinskyi.environment.Browser;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -17,8 +17,8 @@ import java.util.Map;
 @Component
 public class WebDriverFactory {
 
-    public WebDriver getDriverOf(BrowserType browserType) {
-        switch (browserType) {
+    public WebDriver getDriverOf(Browser browser) {
+        switch (browser) {
             case CHROME:
                 return new ChromeDriver();
             case FIREFOX:
@@ -32,8 +32,8 @@ public class WebDriverFactory {
         }
     }
 
-    public WebDriver getDriverOf(BrowserType browserType, URL hubHost) {
-        switch (browserType) {
+    public WebDriver getDriverOf(Browser browser, URL hubHost) {
+        switch (browser) {
             case CHROME:
                 return new RemoteWebDriver(hubHost, DesiredCapabilities.chrome());
             case FIREFOX:

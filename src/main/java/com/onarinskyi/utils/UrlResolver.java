@@ -1,7 +1,7 @@
 package com.onarinskyi.utils;
 
+import com.onarinskyi.annotations.Url;
 import com.onarinskyi.core.Page;
-import com.onarinskyi.core.Reflection;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -11,7 +11,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 @Component
-@PropertySource("classpath:application.properties")
+@PropertySource("classpath:driver.properties")
 public class UrlResolver {
 
     private static final Logger logger = Logger.getLogger(UrlResolver.class);
@@ -32,30 +32,16 @@ public class UrlResolver {
                 return getClassAnnotationBasedUrl(page);
             } catch (MalformedURLException e2) {
                 logger.warn("Application url in class: " + page.getClass().getSimpleName() + " is malformed. Please review it!");
-                throw new RuntimeException("No valid URL was found in page declaration or application.properties file");
+                throw new RuntimeException("No valid URL was found in page declaration or properties file");
             }
         }
     }
-
-//    public URL resolveUrl(String hubHostString, boolean useGrid) {
-//        try {
-//            return new URL(hubHostString);
-//        } catch (MalformedURLException e) {
-//            if (useGrid){
-//                throw new RuntimeException("No valid URL for grid was found environment.properties file");
-//            }
-//            else {
-//                logger.warn("Grid URL in environment.properties file is malformed. Please review it!");
-//            }
-//        }
-//        return null;
-//    }
 
     private String getPropertiesBasedUrl(Page page) throws MalformedURLException {
         applicationBaseUrl = applicationBaseUrl.endsWith("/") ? applicationBaseUrl : applicationBaseUrl + "/";
         new URL(applicationBaseUrl);
 
-        String currentPageUrlAnnotationValue = Reflection.getUrlAnnotationValue(page.getClass());
+        String currentPageUrlAnnotationValue = getUrlAnnotationValue(page.getClass());
         String currentPageFullUrl = currentPageUrlAnnotationValue.contains("http") ?
                 applicationBaseUrl + currentPageUrlAnnotationValue.substring(currentPageUrlAnnotationValue.lastIndexOf("/")) :
                 applicationBaseUrl + currentPageUrlAnnotationValue;
@@ -66,6 +52,13 @@ public class UrlResolver {
     }
 
     private String getClassAnnotationBasedUrl(Page page) throws MalformedURLException {
-        return new URL(Reflection.getUrlAnnotationValue(page.getClass())).toString();
+        return new URL(getUrlAnnotationValue(page.getClass())).toString();
+    }
+
+    public static String getUrlAnnotationValue(Class<?> clazz) {
+        if (clazz.isAnnotationPresent(Url.class)) {
+            return clazz.getAnnotation(Url.class).value();
+        }
+        return "";
     }
 }
