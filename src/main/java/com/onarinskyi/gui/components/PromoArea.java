@@ -10,6 +10,6 @@ public class PromoArea extends AbstractPageComponent {
     private By promoAreaBlock;
 
     public boolean isVisible() {
-        return driver.isElementVisible(promoAreaBlock);
+        return driver.isVisible(promoAreaBlock);
     }
 }

@@ -7,9 +7,12 @@ public enum OperatingSystem {
     WINDOWS,
     MACOS;
 
-    public static OperatingSystem of(String type) {
+    public static OperatingSystem current() {
+        final String os = System.getProperty("os.name");
+
         return Arrays.stream(OperatingSystem.values())
-                .filter(constant -> constant.name().toLowerCase().contains(type))
+                .filter(constant -> constant.name().toLowerCase()
+                        .contains(os.substring(0, os.indexOf(" ")).toLowerCase()))
                 .findFirst().orElse(WINDOWS);
     }
 }

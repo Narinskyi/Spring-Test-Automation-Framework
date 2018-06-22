@@ -14,7 +14,7 @@ public class EnvironmentConfig {
 
     @Bean
     public OperatingSystem operatingSystem(@Value("${system.os}") String type) {
-        return OperatingSystem.of(type);
+        return OperatingSystem.current();
     }
 
     @Bean
