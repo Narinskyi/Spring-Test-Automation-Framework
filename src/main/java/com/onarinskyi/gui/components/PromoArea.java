@@ -1,9 +1,11 @@
 package com.onarinskyi.gui.components;
 
 import com.onarinskyi.annotations.FindBy;
+import com.onarinskyi.annotations.PageComponentClass;
 import com.onarinskyi.core.AbstractPageComponent;
 import org.openqa.selenium.By;
 
+@PageComponentClass
 public class PromoArea extends AbstractPageComponent {
 
     @FindBy(id = "gw-desktop-herotator")

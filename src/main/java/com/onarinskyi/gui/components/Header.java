@@ -1,10 +1,12 @@
 package com.onarinskyi.gui.components;
 
 import com.onarinskyi.annotations.FindBy;
+import com.onarinskyi.annotations.PageComponentClass;
 import com.onarinskyi.core.AbstractPageComponent;
 import com.onarinskyi.gui.model.Category;
 import org.openqa.selenium.By;
 
+@PageComponentClass
 public class Header extends AbstractPageComponent {
 
     @FindBy(id = "twotabsearchtextbox")

@@ -18,7 +18,6 @@ public class DriverConfig {
     }
 
     @Bean
-    @Scope("prototype")
     public ThreadLocal<WebDriverDecorator> threadLocal() {
         return ThreadLocal.withInitial(driverFactory::getInitialDriver);
     }

@@ -27,7 +27,7 @@ public class WebDriverFactory {
     @Value("${use.grid}")
     private Boolean useGrid;
 
-    @Value("${grid.hub")
+    @Value("${grid.hub}")
     private URL hubHostUrl;
 
     @Value("${exception.fail}")

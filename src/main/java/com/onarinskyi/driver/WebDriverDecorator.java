@@ -430,6 +430,7 @@ public class WebDriverDecorator implements WebDriver {
 
     @Attachment(value = "PageObject screenshot", type = "image/png")
     public byte[] takeScreenshot() {
+        log.info("Taking screenshot on test failure");
         return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
     }
 }

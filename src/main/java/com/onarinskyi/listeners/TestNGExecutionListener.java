@@ -50,7 +50,6 @@ public class TestNGExecutionListener extends TestListenerAdapter {
                 result.getMethod().getMethodName() + " failed");
         System.out.println();
 
-        result.getThrowable().printStackTrace();
         ApplicationContextManager.getApplicationContext()
                 .getBean(WebDriverDecorator.class).takeScreenshot();
     }

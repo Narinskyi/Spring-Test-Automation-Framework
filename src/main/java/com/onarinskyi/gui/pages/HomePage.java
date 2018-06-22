@@ -2,11 +2,13 @@ package com.onarinskyi.gui.pages;
 
 import com.onarinskyi.annotations.FindBy;
 import com.onarinskyi.annotations.PageComponent;
+import com.onarinskyi.annotations.PageObjectClass;
 import com.onarinskyi.annotations.Url;
 import com.onarinskyi.gui.components.Header;
 import com.onarinskyi.gui.components.PromoArea;
 import org.openqa.selenium.By;
 
+@PageObjectClass
 @Url("/")
 public class HomePage extends BasePage {
 
