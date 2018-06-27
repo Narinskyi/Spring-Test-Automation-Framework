@@ -31,8 +31,8 @@ public class TestNGExecutionListener extends TestListenerAdapter {
                 "   | |    / _ \\ / __| | __|   | |_) |  / _` | / __| / __|  / _ \\  / _` |\n" +
                 "   | |   |  __/ \\__ \\ | |_    |  __/  | (_| | \\__ \\ \\__ \\ |  __/ | (_| |\n" +
                 "   |_|    \\___| |___/  \\__|   |_|      \\__,_| |___/ |___/  \\___|  \\__,_|\n" +
-                "                                                                        " +
-                +(char) 27 + "[0m");
+                "                                                                        "
+                +(char) 27 + " [0m");
         log.info("Test: " + result.getTestClass().getRealClass().getName() + " > " +
                 result.getMethod().getMethodName() + " passed");
         System.out.println();

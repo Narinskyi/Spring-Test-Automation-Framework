@@ -1,11 +1,11 @@
 package tests;
 
 import com.onarinskyi.annotations.PageObject;
-import com.onarinskyi.core.AbstractTestNGTest;
-import org.testng.annotations.Test;
+import com.onarinskyi.core.AbstractUITest;
 import com.onarinskyi.gui.pages.HomePage;
+import org.testng.annotations.Test;
 
-public class Simple1Test extends AbstractTestNGTest {
+public class Simple1Test extends AbstractUITest {
 
     @PageObject
     private HomePage page;
