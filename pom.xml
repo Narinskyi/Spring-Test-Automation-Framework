@@ -57,6 +57,16 @@
                 <groupId>ru.yandex.qatools.allure</groupId>
                 <artifactId>allure-maven-plugin</artifactId>
                 <version>2.6</version>
+                <configuration>
+                    <properties>
+                        <allure.tests.management.pattern>
+                            http://localhost/%s
+                        </allure.tests.management.pattern>
+                        <allure.issues.tracker.pattern>
+                            http://localhost/%s
+                        </allure.issues.tracker.pattern>
+                    </properties>
+                </configuration>
             </plugin>
         </plugins>
     </reporting>

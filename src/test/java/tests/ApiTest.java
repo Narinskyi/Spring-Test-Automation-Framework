@@ -18,6 +18,8 @@ public class ApiTest extends AbstractTestNGTest {
     @Test
     public void verifyApi() {
         BestSellersResponse response = request
+                .withNumber(1)
+                .withString("2")
                 .withParameter("title", "1984")
                 .sendAndExpect(BestSellersResponse.class);
 
