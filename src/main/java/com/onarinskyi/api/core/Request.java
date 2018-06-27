@@ -8,12 +8,12 @@ import com.onarinskyi.annotations.Delete;
 import com.onarinskyi.annotations.Get;
 import com.onarinskyi.annotations.Post;
 import com.onarinskyi.annotations.Put;
-import com.onarinskyi.utils.UrlResolver;
+import com.onarinskyi.environment.Api;
+import com.onarinskyi.environment.UrlResolver;
 import io.restassured.RestAssured;
 import io.restassured.specification.RequestSpecification;
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.testng.Assert;
 import ru.yandex.qatools.allure.annotations.Attachment;
@@ -26,7 +26,6 @@ import java.util.Map;
 import static io.restassured.RestAssured.given;
 
 @Component
-@PropertySource("classpath:api.properties")
 public abstract class Request {
 
     @JsonIgnore
@@ -39,13 +38,17 @@ public abstract class Request {
     protected Map<String, String> parameters = new HashMap<>();
 
     @JsonIgnore
-    @Value("${api.url}")
-    private String baseUrl;
+    @Autowired
+    private Api api;
+
+    @JsonIgnore
+    @Autowired
+    private UrlResolver urlResolver;
 
     @Step("Sending request")
     public <T extends Response> T sendAndExpect(Class<T> responseClass) {
 
-        RestAssured.baseURI = baseUrl;
+        RestAssured.baseURI = api.getBaseUrl();
 
         T response = null;
 
@@ -59,9 +62,11 @@ public abstract class Request {
 
             parameters.keySet().forEach(key -> request.queryParam(key, parameters.get(key)));
 
+            String url = urlResolver.getResolvedUrlFor(this);
+
             Class clazz = this.getClass();
 
-            String url = UrlResolver.getUrlAnnotationValue(clazz);
+            log.info("Sending request: " + this.getClass().getSimpleName() + " to: " + url);
 
             String responseBody = clazz.isAnnotationPresent(Get.class) ?
                     request.get(url).getBody().asString() :
@@ -75,6 +80,7 @@ public abstract class Request {
             ObjectMapper mapper = new ObjectMapper();
             mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
             response = mapper.readValue(responseBody, responseClass);
+            response.setBody(responseBody);
         } catch (IOException e) {
             log.error("Reading response object failed");
             Assert.fail(e.getMessage());

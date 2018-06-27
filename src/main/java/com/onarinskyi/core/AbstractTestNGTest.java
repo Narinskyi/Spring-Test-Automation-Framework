@@ -2,7 +2,6 @@ package com.onarinskyi.core;
 
 import com.onarinskyi.config.AppConfig;
 import com.onarinskyi.listeners.TestNGExecutionListener;
-import com.onarinskyi.listeners.TestNGSuiteListener;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
@@ -13,7 +12,7 @@ import org.testng.asserts.SoftAssert;
 
 import javax.annotation.PostConstruct;
 
-@Listeners({TestNGExecutionListener.class, TestNGSuiteListener.class})
+@Listeners(TestNGExecutionListener.class)
 @ContextConfiguration(classes = AppConfig.class)
 @TestExecutionListeners(inheritListeners = false,
         listeners = {DependencyInjectionTestExecutionListener.class, DirtiesContextTestExecutionListener.class})

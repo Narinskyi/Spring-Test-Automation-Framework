@@ -2,7 +2,7 @@ package com.onarinskyi.driver;
 
 import com.onarinskyi.core.Page;
 import com.onarinskyi.environment.Timeout;
-import com.onarinskyi.utils.UrlResolver;
+import com.onarinskyi.environment.UrlResolver;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
@@ -312,7 +312,7 @@ public class WebDriverDecorator implements WebDriver {
     }
 
     public void openPage(Page page) {
-        String url = urlResolver.resolveUrlFor(page);
+        String url = urlResolver.getResolvedUrlFor(page);
         log.info("Navigating to URL: " + url);
         driver.navigate().to(url);
     }
@@ -355,7 +355,7 @@ public class WebDriverDecorator implements WebDriver {
 
     public String getURLSuffix() {
         return driver.getCurrentUrl().
-                replaceAll(urlResolver.getApplicationBaseUrl(), "");
+                replaceAll(urlResolver.getUiBaseUrl(), "");
     }
 
     public boolean isElementTextChangedTo(By locator, String text) {

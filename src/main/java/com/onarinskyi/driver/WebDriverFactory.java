@@ -3,7 +3,7 @@ package com.onarinskyi.driver;
 import com.onarinskyi.environment.Browser;
 import com.onarinskyi.environment.OperatingSystem;
 import com.onarinskyi.environment.Timeout;
-import com.onarinskyi.utils.UrlResolver;
+import com.onarinskyi.environment.UrlResolver;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
