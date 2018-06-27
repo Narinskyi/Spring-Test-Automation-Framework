@@ -1,7 +1,7 @@
 package com.onarinskyi.environment;
 
 import com.onarinskyi.annotations.*;
-import com.onarinskyi.api.core.Request;
+import com.onarinskyi.api.Request;
 import com.onarinskyi.core.Page;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;

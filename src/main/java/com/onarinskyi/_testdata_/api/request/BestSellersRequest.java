@@ -1,7 +1,7 @@
-package com.onarinskyi.api.request;
+package com.onarinskyi._testdata_.api.request;
 
 import com.onarinskyi.annotations.Get;
-import com.onarinskyi.api.core.Request;
+import com.onarinskyi.api.Request;
 
 @Get("/lists/best-sellers/history.json")
 public class BestSellersRequest extends Request {

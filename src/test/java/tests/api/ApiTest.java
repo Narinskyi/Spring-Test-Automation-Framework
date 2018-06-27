@@ -1,8 +1,8 @@
 package tests.api;
 
 import com.onarinskyi.annotations.Request;
-import com.onarinskyi.api.request.BestSellersRequest;
-import com.onarinskyi.api.response.bestseller.BestSellersResponse;
+import com.onarinskyi._testdata_.api.request.BestSellersRequest;
+import com.onarinskyi._testdata_.api.response.bestseller.BestSellersResponse;
 import com.onarinskyi.core.AbstractTestNGTest;
 import org.testng.annotations.Test;
 import ru.yandex.qatools.allure.annotations.Features;

@@ -1,4 +1,4 @@
-package com.onarinskyi.database.jdbc.entities;
+package com.onarinskyi._testdata_.database.jdbc.entities;
 
 public class Person {
 

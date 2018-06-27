@@ -1,9 +1,9 @@
-package com.onarinskyi.gui.components;
+package com.onarinskyi._testdata_.gui.components;
 
 import com.onarinskyi.annotations.FindBy;
 import com.onarinskyi.annotations.PageComponentClass;
 import com.onarinskyi.core.AbstractPageComponent;
-import com.onarinskyi.gui.model.Category;
+import com.onarinskyi._testdata_.gui.model.Category;
 import org.openqa.selenium.By;
 
 @PageComponentClass

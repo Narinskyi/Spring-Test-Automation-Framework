@@ -1,4 +1,4 @@
-package com.onarinskyi.api.core;
+package com.onarinskyi.api;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.JsonProcessingException;

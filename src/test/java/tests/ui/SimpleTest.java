@@ -2,7 +2,7 @@ package tests.ui;
 
 import com.onarinskyi.annotations.PageObject;
 import com.onarinskyi.core.AbstractUITest;
-import com.onarinskyi.gui.pages.HomePage;
+import com.onarinskyi._testdata_.gui.pages.HomePage;
 import org.testng.annotations.Test;
 import ru.yandex.qatools.allure.annotations.Features;
 import ru.yandex.qatools.allure.annotations.Stories;
