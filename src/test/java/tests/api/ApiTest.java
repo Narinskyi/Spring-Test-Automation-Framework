@@ -1,4 +1,4 @@
-package tests;
+package tests.api;
 
 import com.onarinskyi.annotations.Request;
 import com.onarinskyi.api.request.BestSellersRequest;

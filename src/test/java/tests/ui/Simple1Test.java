@@ -1,4 +1,4 @@
-package tests;
+package tests.ui;
 
 import com.onarinskyi.annotations.PageObject;
 import com.onarinskyi.core.AbstractUITest;
