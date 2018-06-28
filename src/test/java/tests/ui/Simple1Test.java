@@ -1,7 +1,7 @@
 package tests.ui;
 
 import com.onarinskyi.annotations.PageObject;
-import com.onarinskyi.core.AbstractUITest;
+import com.onarinskyi.context.AbstractUITest;
 import com.onarinskyi._testdata_.gui.pages.HomePage;
 import org.testng.annotations.Test;
 

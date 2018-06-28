@@ -3,7 +3,7 @@ package tests.api;
 import com.onarinskyi.annotations.Request;
 import com.onarinskyi._testdata_.api.request.BestSellersRequest;
 import com.onarinskyi._testdata_.api.response.bestseller.BestSellersResponse;
-import com.onarinskyi.core.AbstractTestNGTest;
+import com.onarinskyi.context.AbstractTestNGTest;
 import org.testng.annotations.Test;
 import ru.yandex.qatools.allure.annotations.Features;
 import ru.yandex.qatools.allure.annotations.Stories;

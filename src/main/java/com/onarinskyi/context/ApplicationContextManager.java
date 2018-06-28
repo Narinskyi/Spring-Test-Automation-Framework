@@ -1,4 +1,4 @@
-package com.onarinskyi.core;
+package com.onarinskyi.context;
 
 import org.springframework.context.ApplicationContext;
 

@@ -1,4 +1,4 @@
-package com.onarinskyi.core;
+package com.onarinskyi.context;
 
 import com.onarinskyi.config.AppConfig;
 import com.onarinskyi.listeners.TestNGExecutionListener;
