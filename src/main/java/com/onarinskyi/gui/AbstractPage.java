@@ -1,4 +1,4 @@
-package com.onarinskyi.core;
+package com.onarinskyi.gui;
 
 import com.onarinskyi.annotations.PageObjectClass;
 import com.onarinskyi.driver.WebDriverDecorator;

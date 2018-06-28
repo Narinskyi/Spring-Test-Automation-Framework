@@ -1,4 +1,4 @@
-package com.onarinskyi.core;
+package com.onarinskyi.gui;
 
 public interface Page {
     void open();

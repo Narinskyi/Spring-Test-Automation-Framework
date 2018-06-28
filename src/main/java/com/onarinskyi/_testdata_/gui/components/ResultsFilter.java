@@ -1,7 +1,7 @@
 package com.onarinskyi._testdata_.gui.components;
 
 import com.onarinskyi.annotations.FindBy;
-import com.onarinskyi.core.AbstractPageComponent;
+import com.onarinskyi.gui.AbstractPageComponent;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 

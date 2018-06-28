@@ -1,6 +1,6 @@
 package com.onarinskyi.driver;
 
-import com.onarinskyi.core.Page;
+import com.onarinskyi.gui.Page;
 import com.onarinskyi.environment.Timeout;
 import com.onarinskyi.environment.UrlResolver;
 import org.apache.log4j.Logger;
