@@ -11,12 +11,16 @@ import org.springframework.context.annotation.PropertySource;
 public class UserConfig {
 
     @Bean
-    public User adminUser(@Value("${admin.name}") String adminName, @Value("${admin.password}") String adminPassword) {
-        return new User(adminName, adminPassword);
+    public User adminUser(@Value("${admin.name}") String adminName,
+                          @Value("${admin.password}") String adminPassword,
+                          @Value("${admin.email}") String adminEmail) {
+        return new User(adminName, adminPassword, adminEmail);
     }
 
     @Bean
-    public User user(@Value("${user.name}") String userName, @Value("${user.password}") String userPassword) {
-        return new User(userName, userPassword);
+    public User user(@Value("${user.name}") String userName,
+                     @Value("${user.password}") String userPassword,
+                     @Value("${user.email}") String userEmail) {
+        return new User(userName, userPassword, userEmail);
     }
 }
