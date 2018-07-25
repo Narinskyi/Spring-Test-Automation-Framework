@@ -17,4 +17,11 @@ public class Button extends AbstractPageComponent {
             locator = By.cssSelector("#searchform, #search");
         }
     }
+
+    @PageComponentClass
+    public static class Ok extends Button {
+        {
+            locator = By.cssSelector("#submit");
+        }
+    }
 }

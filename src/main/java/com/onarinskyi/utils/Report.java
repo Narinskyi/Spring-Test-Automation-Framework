@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.util.Properties;
 import java.util.PropertyResourceBundle;
 
-//TODO - try making component
 public class Report {
 
     private static final Logger logger = Logger.getLogger(Report.class);
