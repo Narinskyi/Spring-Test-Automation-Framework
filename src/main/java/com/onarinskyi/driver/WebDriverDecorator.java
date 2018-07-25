@@ -199,8 +199,8 @@ public class WebDriverDecorator implements WebDriver {
     }
 
     public void waitForAJAX() {
-        log.info("Waiting for AJAX");
         waitFor(200);
+        log.info("Waiting for AJAX");
         wait.until((Function<WebDriver, Object>) driver -> ((JavascriptExecutor) driver)
                 .executeScript("return jQuery.active == 0").equals(true));
     }

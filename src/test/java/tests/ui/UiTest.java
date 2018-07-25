@@ -13,7 +13,7 @@ import ru.yandex.qatools.allure.annotations.TestCaseId;
 
 @Features(Feature.GUI)
 @Stories("Car rent")
-public class CarsTest extends AbstractUITest {
+public class UiTest extends AbstractUITest {
 
     @PageObject
     private CarsPage onCarsPage;
