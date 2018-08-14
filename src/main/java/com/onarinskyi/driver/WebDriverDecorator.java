@@ -257,7 +257,7 @@ public class WebDriverDecorator implements WebDriver {
         findVisibleElement(locator).sendKeys(String.valueOf(text));
     }
 
-    public void claerAndType(By locator, String text) {
+    public void clearAndType(By locator, String text) {
         clearField(locator);
         type(locator, text);
     }
