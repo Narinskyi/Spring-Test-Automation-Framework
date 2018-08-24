@@ -12,7 +12,7 @@ public enum Browser {
 
     public static Browser of(String type) {
         return Arrays.stream(Browser.values())
-                .filter(constant -> constant.name().contains(type))
+                .filter(constant -> constant.name().toLowerCase().contains(type))
                 .findFirst().orElse(CHROME);
     }
 }

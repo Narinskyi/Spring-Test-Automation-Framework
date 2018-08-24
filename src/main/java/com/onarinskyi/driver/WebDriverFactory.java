@@ -9,6 +9,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
+import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,8 +65,9 @@ public class WebDriverFactory {
                 break;
             case WINDOWS:
                 System.setProperty("webdriver.chrome.driver", "src/drivers/windows/chromedriver.exe");
-                System.setProperty("webdriver.chrome.driver", "src/drivers/windows/geckodriver.exe");
-                System.setProperty("webdriver.chrome.driver", "src/drivers/windows/phantomjs.exe");
+                System.setProperty("webdriver.ie.driver", "src/drivers/windows/IEDriverServer.exe");
+                System.setProperty("webdriver.gecko.driver", "src/drivers/windows/geckodriver.exe");
+                System.setProperty("phantomjs.binary.path", "src/drivers/windows/phantomjs.exe");
                 break;
         }
     }
@@ -74,6 +76,8 @@ public class WebDriverFactory {
         switch (browser) {
             case CHROME:
                 return new ChromeDriver();
+            case IE:
+                return new InternetExplorerDriver();
             case FIREFOX:
                 return new FirefoxDriver(getFirefoxCapabilities());
             case MOBILE_EMULATOR_CHROME:
