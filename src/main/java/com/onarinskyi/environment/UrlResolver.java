@@ -5,13 +5,16 @@ import com.onarinskyi.annotations.ui.Url;
 import com.onarinskyi.api.Request;
 import com.onarinskyi.gui.Page;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.PropertySources;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.List;
 
 @Component
@@ -24,11 +27,27 @@ public class UrlResolver {
 
     private final Logger logger = Logger.getLogger(this.getClass());
 
-    @Value("${base.url}")
     private String uiBaseUrl;
-
-    @Value("#{'${api.url}'.split(',')}")
     private List<String> apiBaseUrls;
+
+    @Autowired
+    public UrlResolver(Environment environment, @Value("#{systemProperties['env']}") String usedEnv) {
+        try {
+            switch (usedEnv == null ? "" : usedEnv) {
+                case "":
+                    uiBaseUrl = environment.getProperty("default.base.url");
+                    apiBaseUrls = Arrays.asList(environment.getProperty("default.api.url").split(","));
+                    break;
+                default:
+                    uiBaseUrl = environment.getProperty(usedEnv.concat(".base.url"));
+                    apiBaseUrls = Arrays.asList(environment.getProperty(usedEnv.concat(".api.url")).split(","));
+                    break;
+            }
+        } catch (Exception e) {
+            logger.error("Check your env system variable");
+            throw e;
+        }
+    }
 
     public String getUiBaseUrl() {
         return uiBaseUrl;
