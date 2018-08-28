@@ -33,6 +33,9 @@ public abstract class Request {
     protected Map<String, String> parameters = new HashMap<>();
 
     @JsonIgnore
+    protected RequestSpecification requestSpecification;
+
+    @JsonIgnore
     @Autowired
     private UrlResolver urlResolver;
 
@@ -42,18 +45,23 @@ public abstract class Request {
         T response = null;
 
         try {
-            RequestSpecification request = given()
-                    .relaxedHTTPSValidation()
-                    .auth().none()
-                    .contentType("application/json")
-                    .headers(headers)
-                    .body(this);
+            requestSpecification = requestSpecification == null ?
+                    given()
+                            .relaxedHTTPSValidation()
+                            .auth().none()
+                            .contentType("application/json")
+                            .headers(headers)
+                            .body(this) :
 
-            parameters.keySet().forEach(key -> request.queryParam(key, parameters.get(key)));
+                    requestSpecification
+                            .headers(headers)
+                            .body(this);
+
+            parameters.keySet().forEach(key -> requestSpecification.queryParam(key, parameters.get(key)));
 
             String url = urlResolver.getResolvedUrlFor(this);
 
-            String responseBody = sendRequest(request, url);
+            String responseBody = sendRequest(requestSpecification, url);
 
             ObjectMapper mapper = new ObjectMapper();
             mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
@@ -106,6 +114,11 @@ public abstract class Request {
 
     public <T extends Request> T withParameter(String key, String value) {
         this.parameters.put(key, value);
+        return (T) this;
+    }
+
+    public <T extends Request> T withRequestSpecification(RequestSpecification requestSpecification) {
+        this.requestSpecification = requestSpecification;
         return (T) this;
     }
 

@@ -21,5 +21,12 @@ public class BestSellersRequest extends Request {
 
     public BestSellersRequest() {
         this.parameters.put("api-key", "8aded16392704b52b2af33285cba06a2");
+
+//        Overriding default config
+
+//        this.requestSpecification = given()
+//                .relaxedHTTPSValidation()
+//                .auth().none()
+//                .contentType("application/json");
     }
 }
