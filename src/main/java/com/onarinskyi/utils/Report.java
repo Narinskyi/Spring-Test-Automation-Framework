@@ -21,9 +21,13 @@ public class Report {
         logger.info("Generating environment attachment to Allure report");
 
         try {
-            String baseUrl = new PropertyResourceBundle(new FileInputStream(BASE_PATH + "driver.properties")).getString("base.url");
-            String browser = new PropertyResourceBundle(new FileInputStream(BASE_PATH + "driver.properties")).getString("browser.type");
-            String name = new PropertyResourceBundle(new FileInputStream(BASE_PATH + "user.properties")).getString("user.name");
+            PropertyResourceBundle driverProperties = new PropertyResourceBundle(new FileInputStream(BASE_PATH + "driver.properties"));
+
+            String env = System.getProperty("env");
+
+            String baseUrl = env == null ? driverProperties.getString("default.base.url") :
+                    driverProperties.getString(env.concat(".base.url"));
+            String browser = driverProperties.getString("browser.type");
 
             FileUtils.touch(new File(ENVIRONMENT_FILE));
             FileOutputStream out = new FileOutputStream(ENVIRONMENT_FILE);
@@ -31,7 +35,6 @@ public class Report {
             Properties environmentProperties = new Properties();
             environmentProperties.put("base.url", baseUrl);
             environmentProperties.put("browser", browser);
-            environmentProperties.put("user", name);
 
             environmentProperties.store(out, "Environment Properties");
             out.flush();
