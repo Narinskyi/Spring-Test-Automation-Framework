@@ -1,9 +1,9 @@
 package com.onarinskyi._testdata_.api.request;
 
-import com.onarinskyi.annotations.Get;
+import com.onarinskyi.annotations.api.Get;
 import com.onarinskyi.api.Request;
 
-@Get("/lists/best-sellers/history.json")
+@Get(endpoint = "/lists/best-sellers/history.json", api = "nytimes")
 public class BestSellersRequest extends Request {
 
     public int number;

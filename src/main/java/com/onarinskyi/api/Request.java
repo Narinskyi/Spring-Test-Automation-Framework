@@ -4,13 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.onarinskyi.annotations.Delete;
-import com.onarinskyi.annotations.Get;
-import com.onarinskyi.annotations.Post;
-import com.onarinskyi.annotations.Put;
-import com.onarinskyi.environment.Api;
+import com.onarinskyi.annotations.api.*;
 import com.onarinskyi.environment.UrlResolver;
-import io.restassured.RestAssured;
 import io.restassured.specification.RequestSpecification;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,16 +34,10 @@ public abstract class Request {
 
     @JsonIgnore
     @Autowired
-    private Api api;
-
-    @JsonIgnore
-    @Autowired
     private UrlResolver urlResolver;
 
     @Step("Sending request")
     public <T extends Response> T sendAndExpect(Class<T> responseClass) {
-
-        RestAssured.baseURI = api.getBaseUrl();
 
         T response = null;
 
@@ -64,18 +53,7 @@ public abstract class Request {
 
             String url = urlResolver.getResolvedUrlFor(this);
 
-            Class clazz = this.getClass();
-
-            log.info("Sending request: " + this.getClass().getSimpleName() + " to: " + url);
-
-            String responseBody = clazz.isAnnotationPresent(Get.class) ?
-                    request.get(url).getBody().asString() :
-                    clazz.isAnnotationPresent(Put.class) ?
-                            request.put(url).getBody().toString() :
-                            clazz.isAnnotationPresent(Post.class) ?
-                                    request.post(url).getBody().toString() :
-                                    clazz.isAnnotationPresent(Delete.class) ?
-                                            request.delete(url).getBody().toString() : "";
+            String responseBody = sendRequest(request, url);
 
             ObjectMapper mapper = new ObjectMapper();
             mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
@@ -90,6 +68,25 @@ public abstract class Request {
         attach(response);
 
         return response;
+    }
+
+    private String sendRequest(RequestSpecification request, String url) {
+        log.info("Sending request: " + this.getClass().getSimpleName() + " to: " + url);
+
+        Class clazz = this.getClass();
+
+        return clazz.isAnnotationPresent(Get.class) ?
+                request.get(url).getBody().asString() :
+                clazz.isAnnotationPresent(Put.class) ?
+                        request.put(url).getBody().toString() :
+                        clazz.isAnnotationPresent(Post.class) ?
+                                request.post(url).getBody().toString() :
+                                clazz.isAnnotationPresent(Delete.class) ?
+                                        request.delete(url).getBody().toString() :
+                                        clazz.isAnnotationPresent(Head.class) ?
+                                                request.head(url).getBody().toString() :
+                                                clazz.isAnnotationPresent(Options.class) ?
+                                                        request.options(url).getBody().toString() : "";
     }
 
     @Attachment(type = "application/json", value = "Request")

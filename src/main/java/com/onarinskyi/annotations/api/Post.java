@@ -1,4 +1,4 @@
-package com.onarinskyi.annotations;
+package com.onarinskyi.annotations.api;
 
 import org.springframework.stereotype.Component;
 
@@ -11,5 +11,6 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 public @interface Post {
-    String value() default "";
+    String endpoint() default "";
+    String api() default "";
 }

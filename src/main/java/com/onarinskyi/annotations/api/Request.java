@@ -1,4 +1,4 @@
-package com.onarinskyi.annotations;
+package com.onarinskyi.annotations.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -10,4 +10,4 @@ import java.lang.annotation.Target;
 @Autowired
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
-public @interface PageComponent {}
+public @interface Request {}

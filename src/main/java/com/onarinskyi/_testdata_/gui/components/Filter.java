@@ -1,8 +1,8 @@
 package com.onarinskyi._testdata_.gui.components;
 
 import com.onarinskyi._testdata_.gui.model.CarType;
-import com.onarinskyi.annotations.PageComponent;
-import com.onarinskyi.annotations.PageComponentClass;
+import com.onarinskyi.annotations.ui.PageComponent;
+import com.onarinskyi.annotations.ui.PageComponentClass;
 import com.onarinskyi.gui.AbstractPageComponent;
 import ru.yandex.qatools.allure.annotations.Step;
 

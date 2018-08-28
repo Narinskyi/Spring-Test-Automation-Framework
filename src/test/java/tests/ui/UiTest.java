@@ -4,7 +4,7 @@ import com.onarinskyi._testdata_.gui.model.Car;
 import com.onarinskyi._testdata_.gui.pages.CarDetailsPage;
 import com.onarinskyi._testdata_.gui.pages.CarsPage;
 import com.onarinskyi._testdata_.reporting.Feature;
-import com.onarinskyi.annotations.PageObject;
+import com.onarinskyi.annotations.ui.PageObject;
 import com.onarinskyi.context.AbstractUITest;
 import org.testng.annotations.Test;
 import ru.yandex.qatools.allure.annotations.Features;

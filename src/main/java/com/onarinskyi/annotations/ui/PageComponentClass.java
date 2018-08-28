@@ -1,4 +1,4 @@
-package com.onarinskyi.annotations;
+package com.onarinskyi.annotations.ui;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -12,4 +12,6 @@ import java.lang.annotation.Target;
 @Scope("prototype")
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-public @interface PageObjectClass {}
+public @interface PageComponentClass {
+
+}

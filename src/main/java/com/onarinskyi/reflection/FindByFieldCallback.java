@@ -1,6 +1,6 @@
 package com.onarinskyi.reflection;
 
-import com.onarinskyi.annotations.FindBy;
+import com.onarinskyi.annotations.ui.FindBy;
 import org.openqa.selenium.By;
 import org.springframework.util.ReflectionUtils;
 

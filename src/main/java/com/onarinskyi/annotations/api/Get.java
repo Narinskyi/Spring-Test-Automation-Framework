@@ -1,4 +1,4 @@
-package com.onarinskyi.annotations;
+package com.onarinskyi.annotations.api;
 
 import org.springframework.stereotype.Component;
 
@@ -10,6 +10,7 @@ import java.lang.annotation.Target;
 @Component
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-public @interface Delete {
-    String value() default "";
+public @interface Get {
+    String endpoint() default "";
+    String api() default "";
 }

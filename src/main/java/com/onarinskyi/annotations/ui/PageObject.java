@@ -1,4 +1,4 @@
-package com.onarinskyi.annotations;
+package com.onarinskyi.annotations.ui;
 
 import org.springframework.beans.factory.annotation.Autowired;
 

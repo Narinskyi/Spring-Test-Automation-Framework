@@ -1,7 +1,7 @@
 package com.onarinskyi._testdata_.gui.pages;
 
-import com.onarinskyi.annotations.FindBy;
-import com.onarinskyi.annotations.PageObjectClass;
+import com.onarinskyi.annotations.ui.FindBy;
+import com.onarinskyi.annotations.ui.PageObjectClass;
 import com.onarinskyi.gui.AbstractPage;
 import org.openqa.selenium.By;
 import org.testng.Assert;

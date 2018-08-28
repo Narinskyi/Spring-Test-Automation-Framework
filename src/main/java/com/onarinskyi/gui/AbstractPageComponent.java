@@ -1,6 +1,6 @@
 package com.onarinskyi.gui;
 
-import com.onarinskyi.annotations.PageComponentClass;
+import com.onarinskyi.annotations.ui.PageComponentClass;
 import com.onarinskyi.driver.WebDriverDecorator;
 import org.openqa.selenium.By;
 import org.springframework.beans.factory.annotation.Autowired;

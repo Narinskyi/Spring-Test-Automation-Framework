@@ -1,19 +1,25 @@
 package com.onarinskyi.environment;
 
-import com.onarinskyi.annotations.*;
+import com.onarinskyi.annotations.api.*;
+import com.onarinskyi.annotations.ui.Url;
 import com.onarinskyi.api.Request;
 import com.onarinskyi.gui.Page;
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.PropertySources;
 import org.springframework.stereotype.Component;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.List;
 
 @Component
-@PropertySource("classpath:driver.properties")
+@PropertySources({
+        @PropertySource("classpath:driver.properties"),
+        @PropertySource("classpath:api.properties")
+})
+
 public class UrlResolver {
 
     private final Logger logger = Logger.getLogger(this.getClass());
@@ -21,11 +27,15 @@ public class UrlResolver {
     @Value("${base.url}")
     private String uiBaseUrl;
 
-    @Autowired
-    private Api api;
+    @Value("#{'${api.url}'.split(',')}")
+    private List<String> apiBaseUrls;
 
     public String getUiBaseUrl() {
         return uiBaseUrl;
+    }
+
+    public List<String> getApiBaseUrls() {
+        return apiBaseUrls;
     }
 
     public String getResolvedUrlFor(Object object) {
@@ -48,7 +58,10 @@ public class UrlResolver {
         if (object instanceof Page) {
             baseUrl = uiBaseUrl;
         } else if (object instanceof Request) {
-            baseUrl = api.getBaseUrl();
+            String partialUrl = getPartialUrl(object.getClass());
+            baseUrl = partialUrl.isEmpty() ?
+                    apiBaseUrls.get(0) :
+                    apiBaseUrls.stream().filter(v -> v.contains(partialUrl)).findFirst().get();
         } else {
             throw new MalformedURLException("Unknown object requesting url");
         }
@@ -78,12 +91,27 @@ public class UrlResolver {
         return clazz.isAnnotationPresent(Url.class) ?
                 clazz.getAnnotation(Url.class).value() :
                 clazz.isAnnotationPresent(Get.class) ?
-                        clazz.getAnnotation(Get.class).value() :
+                        clazz.getAnnotation(Get.class).endpoint() :
                         clazz.isAnnotationPresent(Put.class) ?
-                                clazz.getAnnotation(Put.class).value() :
+                                clazz.getAnnotation(Put.class).endpoint() :
                                 clazz.isAnnotationPresent(Post.class) ?
-                                        clazz.getAnnotation(Post.class).value() :
+                                        clazz.getAnnotation(Post.class).endpoint() :
                                         clazz.isAnnotationPresent(Delete.class) ?
-                                                clazz.getAnnotation(Delete.class).value() : "";
+                                                clazz.getAnnotation(Delete.class).endpoint() : "";
+    }
+
+    private String getPartialUrl(Class<?> clazz) {
+        return clazz.isAnnotationPresent(Get.class) ?
+                clazz.getAnnotation(Get.class).api() :
+                clazz.isAnnotationPresent(Put.class) ?
+                        clazz.getAnnotation(Put.class).api() :
+                        clazz.isAnnotationPresent(Post.class) ?
+                                clazz.getAnnotation(Post.class).api() :
+                                clazz.isAnnotationPresent(Delete.class) ?
+                                        clazz.getAnnotation(Delete.class).api() :
+                                        clazz.isAnnotationPresent(Head.class) ?
+                                                clazz.getAnnotation(Head.class).api() :
+                                                clazz.isAnnotationPresent(Options.class) ?
+                                                        clazz.getAnnotation(Options.class).api() : "";
     }
 }

@@ -3,7 +3,7 @@ package tests.api;
 import com.onarinskyi._testdata_.api.request.BestSellersRequest;
 import com.onarinskyi._testdata_.api.response.bestseller.BestSellersResponse;
 import com.onarinskyi._testdata_.reporting.Feature;
-import com.onarinskyi.annotations.Request;
+import com.onarinskyi.annotations.api.Request;
 import com.onarinskyi.context.AbstractTestNGTest;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;

@@ -1,17 +1,12 @@
-package com.onarinskyi.annotations;
-
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
+package com.onarinskyi.annotations.ui;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Component
-@Scope("prototype")
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-public @interface PageComponentClass {
-
+public @interface Url {
+    String value() default "";
 }
