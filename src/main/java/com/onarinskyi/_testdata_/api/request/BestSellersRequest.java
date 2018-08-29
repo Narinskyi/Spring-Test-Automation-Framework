@@ -3,7 +3,7 @@ package com.onarinskyi._testdata_.api.request;
 import com.onarinskyi.annotations.api.Get;
 import com.onarinskyi.api.Request;
 
-@Get(endpoint = "/lists/best-sellers/history.json", api = "nytimes")
+@Get(api = "nytimes", endpoint = "/lists/best-sellers/history.json")
 public class BestSellersRequest extends Request {
 
     public int number;
