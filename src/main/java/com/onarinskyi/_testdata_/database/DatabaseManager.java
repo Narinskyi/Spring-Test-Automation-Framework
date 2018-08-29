@@ -1,6 +1,7 @@
 package com.onarinskyi._testdata_.database;
 
-import org.springframework.beans.factory.annotation.Value;
+import com.onarinskyi.config.DbConfig;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
@@ -12,17 +13,8 @@ import java.sql.Statement;
 @PropertySource("classpath:database.properties")
 public class DatabaseManager {
 
-    @Value("${db.driver}")
-    private String driver;
-
-    @Value("${db.url}")
-    private String url;
-
-    @Value("${db.username}")
-    private String username;
-
-    @Value("${db.password}")
-    private String password;
+    @Autowired
+    private DbConfig dbConfig;
 
     public void createDatabase() {
         try  {
@@ -46,8 +38,8 @@ public class DatabaseManager {
     private Connection getConnection() {
         Connection dbConnection = null;
         try {
-            Class.forName(driver);
-            dbConnection = DriverManager.getConnection(url, username, password);
+            Class.forName(dbConfig.getDriver());
+            dbConnection = DriverManager.getConnection(dbConfig.getUrl(), dbConfig.getUsername(), dbConfig.getPassword());
         } catch (Exception e) {
             e.printStackTrace();
         }
