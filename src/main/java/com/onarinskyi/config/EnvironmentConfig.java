@@ -13,7 +13,7 @@ import org.springframework.context.annotation.PropertySource;
 public class EnvironmentConfig {
 
     @Bean
-    public OperatingSystem operatingSystem(@Value("${system.os}") String type) {
+    public OperatingSystem operatingSystem() {
         return OperatingSystem.current();
     }
 
