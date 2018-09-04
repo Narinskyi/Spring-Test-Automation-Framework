@@ -17,6 +17,10 @@ public abstract class AbstractPageComponent {
 
     protected By ancestor;
 
+    public By getLocator() {
+        return locator;
+    }
+
     public By getAncestor() {
         return ancestor;
     }

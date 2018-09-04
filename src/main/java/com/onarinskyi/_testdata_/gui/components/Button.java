@@ -12,11 +12,8 @@ public class Button extends AbstractPageComponent {
         driver.clickOn(new ByChained(ancestor, locator));
     }
 
-    @PageComponentClass
+    @PageComponentClass(css = "#searchform, #search")
     public static class Search extends Button {
-        {
-            locator = By.cssSelector("#searchform, #search");
-        }
     }
 
     @PageComponentClass

@@ -27,5 +27,6 @@ public class AnnotationProcessor implements BeanPostProcessor {
 
     private void update(Object bean) {
         doWithFields(bean.getClass(), new PageComponentFieldCallback(bean));
+        doWithFields(bean.getClass(), new PageComponentClassCallback(bean));
     }
 }

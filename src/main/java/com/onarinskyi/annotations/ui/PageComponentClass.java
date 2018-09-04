@@ -13,5 +13,9 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 public @interface PageComponentClass {
-
+    String id() default "";
+    String name() default "";
+    String css() default "";
+    String xpath() default "";
+    String text() default "";
 }
