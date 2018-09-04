@@ -4,8 +4,10 @@ import com.onarinskyi.annotations.ui.PageComponentClass;
 import com.onarinskyi.driver.WebDriverDecorator;
 import org.openqa.selenium.By;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 
 @PageComponentClass
+@Scope("prototype")
 public abstract class AbstractPageComponent {
 
     @Autowired
@@ -13,7 +15,14 @@ public abstract class AbstractPageComponent {
 
     protected By locator;
 
-    public By getLocator() {
-        return locator;
+    protected By ancestor;
+
+    public By getAncestor() {
+        return ancestor;
+    }
+
+    public <T extends AbstractPageComponent> T withAncestor(By ancestor) {
+        this.ancestor = ancestor;
+        return (T) this;
     }
 }

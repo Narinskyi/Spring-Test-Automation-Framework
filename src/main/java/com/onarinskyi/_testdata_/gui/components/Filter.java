@@ -15,7 +15,7 @@ public class Filter extends AbstractPageComponent {
     @PageComponent
     private Slider.Price sliderPrice;
 
-    @PageComponent
+    @PageComponent(text = "Search")
     private Button.Search buttonSearch;
 
     @Step

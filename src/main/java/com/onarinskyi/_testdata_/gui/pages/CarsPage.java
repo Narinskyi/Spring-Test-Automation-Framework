@@ -1,7 +1,9 @@
 package com.onarinskyi._testdata_.gui.pages;
 
+import com.onarinskyi._testdata_.gui.components.Button;
 import com.onarinskyi._testdata_.gui.components.Card;
 import com.onarinskyi._testdata_.gui.components.Filter;
+import com.onarinskyi._testdata_.gui.components.Header;
 import com.onarinskyi._testdata_.gui.model.Car;
 import com.onarinskyi._testdata_.gui.model.CarType;
 import com.onarinskyi.annotations.ui.PageComponent;
@@ -22,6 +24,25 @@ public class CarsPage extends AbstractPage {
 
     @PageComponent
     private Card.Car cardCar;
+
+    @PageComponent
+    private Header.Cars header;
+
+    @PageComponent(css = "form[role='search']")
+    private Button.Search buttonSearchInHeader;
+
+    @PageComponent(name = "fFilters")
+    private Button.Search buttonSearchInFilter;
+
+    @Step
+    public void clickSearchInHeader() {
+        buttonSearchInHeader.click();
+    }
+
+    @Step
+    public void clickSearchInFilter() {
+        buttonSearchInFilter.click();
+    }
 
     @Step
     public void selectCarRating(int rating) {

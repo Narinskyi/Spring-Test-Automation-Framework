@@ -29,6 +29,7 @@ public class UiTest extends AbstractUITest {
         onCarsPage.open();
 
         onCarsPage.selectCarType(camry.getType());
+
         onCarsPage.clickSearch();
 
         onCarsPage.verifySearchResultsContain(camry);
@@ -46,5 +47,15 @@ public class UiTest extends AbstractUITest {
         onCarsPage.openCarDetails();
 
         onCarDetailsPage.verifyCarPhotoIsDisplayed();
+    }
+
+    @Test
+    @TestCaseId("3")
+    public void test() {
+        onCarsPage.open();
+
+        onCarsPage.clickSearchInHeader();
+
+        onCarsPage.clickSearchInFilter();
     }
 }
