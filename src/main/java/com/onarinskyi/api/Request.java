@@ -53,9 +53,7 @@ public abstract class Request {
                             .headers(headers)
                             .body(this) :
 
-                    requestSpecification
-                            .headers(headers)
-                            .body(this);
+                    requestSpecification;
 
             parameters.keySet().forEach(key -> requestSpecification.queryParam(key, parameters.get(key)));
 
