@@ -28,6 +28,7 @@ public class CarsPage extends AbstractPage {
     @PageComponent
     private Header.Cars header;
 
+    // demonstration of ancestor selectors
     @PageComponent(css = "form[role='search']")
     private Button.Search buttonSearchInHeader;
 

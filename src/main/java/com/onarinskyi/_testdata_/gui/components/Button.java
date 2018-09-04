@@ -2,24 +2,21 @@ package com.onarinskyi._testdata_.gui.components;
 
 import com.onarinskyi.annotations.ui.PageComponentClass;
 import com.onarinskyi.gui.AbstractPageComponent;
-import org.openqa.selenium.By;
-import org.openqa.selenium.support.pagefactory.ByChained;
+import ru.yandex.qatools.allure.annotations.Step;
 
 @PageComponentClass
-public class Button extends AbstractPageComponent {
+public abstract class Button extends AbstractPageComponent {
 
+    @Step
     public void click() {
-        driver.clickOn(new ByChained(ancestor, locator));
+        driver.clickOn(chained(ancestor, locator));
     }
 
     @PageComponentClass(css = "#searchform, #search")
     public static class Search extends Button {
     }
 
-    @PageComponentClass
+    @PageComponentClass(id = "submit")
     public static class Ok extends Button {
-        {
-            locator = By.cssSelector("#submit");
-        }
     }
 }

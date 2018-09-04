@@ -12,7 +12,6 @@ public class Slider extends AbstractPageComponent {
 
         @Step
         public void select(int price) {
-            System.out.println("Selecting price");
         }
     }
 }

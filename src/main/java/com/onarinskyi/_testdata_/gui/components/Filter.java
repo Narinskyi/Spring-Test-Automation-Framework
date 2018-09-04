@@ -7,7 +7,7 @@ import com.onarinskyi.gui.AbstractPageComponent;
 import ru.yandex.qatools.allure.annotations.Step;
 
 @PageComponentClass
-public class Filter extends AbstractPageComponent {
+public abstract class Filter extends AbstractPageComponent {
 
     @PageComponent
     private RadioGroup.Stars radioStars;
@@ -15,7 +15,7 @@ public class Filter extends AbstractPageComponent {
     @PageComponent
     private Slider.Price sliderPrice;
 
-    @PageComponent(text = "Search")
+    @PageComponent
     private Button.Search buttonSearch;
 
     @Step

@@ -7,11 +7,7 @@ import org.openqa.selenium.By;
 import ru.yandex.qatools.allure.annotations.Step;
 
 @PageComponentClass
-public class Card extends AbstractPageComponent {
-
-    {
-        locator = By.cssSelector("div.itemscontainer");
-    }
+public abstract class Card extends AbstractPageComponent {
 
     @PageComponentClass
     public static class Car extends Card {
