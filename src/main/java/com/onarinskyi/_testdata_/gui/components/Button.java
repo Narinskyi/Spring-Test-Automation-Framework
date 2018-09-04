@@ -12,7 +12,7 @@ public abstract class Button extends AbstractPageComponent {
         driver.clickOn(chained(ancestor, locator));
     }
 
-    @PageComponentClass(css = "#searchform, #search")
+    @PageComponentClass(text = "Search")
     public static class Search extends Button {
     }
 
