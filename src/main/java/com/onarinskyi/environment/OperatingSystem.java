@@ -8,11 +8,16 @@ public enum OperatingSystem {
     MACOS;
 
     public static OperatingSystem current() {
-        final String os = System.getProperty("os.name");
+        String systemOs = System.getProperty("os.name");
+
+        if (systemOs.contains(" ")) {
+            systemOs = systemOs.substring(0, systemOs.indexOf(" "));
+        }
+
+        final String os = systemOs;
 
         return Arrays.stream(OperatingSystem.values())
-                .filter(constant -> constant.name().toLowerCase()
-                        .contains(os.substring(0, os.indexOf(" ")).toLowerCase()))
+                .filter(constant -> constant.name().toLowerCase().contains(os.toLowerCase()))
                 .findFirst().orElse(WINDOWS);
     }
 }
