@@ -216,12 +216,37 @@ public class WebDriverDecorator implements WebDriver {
         wait.until(ExpectedConditions.invisibilityOfAllElements(driver.findElements(locator)));
     }
 
+    public void waitForElement(By locator) {
+        log.info("Waiting for element: " + locator);
+        findElement(locator);
+    }
+
+    public void waitForElementVisibility(By locator) {
+        log.info("Waiting for element visibility: " + locator);
+        findVisibleElement(locator);
+    }
+
     public void clickOn(By locator) {
         log.info("Clicking on element: " + locator);
         try {
             findVisibleElement(locator).click();
         } catch (WebDriverException e) {
             log.error("It was not possible to click on element " + locator);
+            if (failOnException) {
+                throw e;
+            }
+        }
+    }
+
+    public void clickUsingActions(By locator) {
+        log.info("Clicking on element using actions: " + locator);
+        try {
+            Actions actions = new Actions(driver);
+            actions.moveToElement(findElement(locator));
+            actions.click();
+            actions.build().perform();
+        } catch (WebDriverException e) {
+            log.error("It was not possible to click on the element: " + locator);
             if (failOnException) {
                 throw e;
             }
@@ -407,6 +432,11 @@ public class WebDriverDecorator implements WebDriver {
     public void press(Keys key) {
         log.info("Pressing key: " + key);
         driver.findElement(By.cssSelector("body")).sendKeys(key);
+    }
+
+    public void shiftFocus() {
+        log.info("Shifting focus from an element");
+        clickOn(By.cssSelector("body"));
     }
 
     public void acceptAlert() {
