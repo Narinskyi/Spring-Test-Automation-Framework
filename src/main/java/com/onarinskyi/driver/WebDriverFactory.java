@@ -10,9 +10,12 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.ie.InternetExplorerOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +52,18 @@ public class WebDriverFactory {
 
     @Value("${platform}")
     private String platform;
+
+    @Value("${device.width}")
+    private String deviceWidth;
+
+    @Value("${device.height}")
+    private String deviceHeight;
+
+    @Value("${device.pixel.ratio}")
+    private String devicePixelRatio;
+
+    @Value("${device.user.agent}")
+    private String deviceUserAgent;
 
     @Autowired
     private Timeout timeout;
@@ -90,19 +105,17 @@ public class WebDriverFactory {
     private WebDriver getLocalDriver(Browser browser) {
         switch (browser) {
             case CHROME:
-                return new ChromeDriver(chromeCapabilities(false));
+                return new ChromeDriver(chromeOptions(false));
             case IE:
-                return new InternetExplorerDriver(ieCapabilities());
+                return new InternetExplorerDriver(ieOptions());
             case EDGE:
-                return new EdgeDriver(edgeCapabilities());
+                return new EdgeDriver(edgeOptions());
             case FIREFOX:
-                return new FirefoxDriver(firefoxCapabilities());
+                return new FirefoxDriver(firefoxOptions());
             case HEADLESS:
-                return new ChromeDriver(chromeCapabilities(true));
+                return new ChromeDriver(chromeOptions(true));
             case MOBILE_EMULATOR_CHROME:
-                return new ChromeDriver(chromeMobileCapabilities(deviceName));
-            case TABLET_EMULATOR_CHROME:
-                return new ChromeDriver(chromeTabletCapabilities());
+                return new ChromeDriver(chromeMobileOptions(deviceName, deviceWidth, deviceHeight, devicePixelRatio, deviceUserAgent));
             default:
                 throw new UnknownBrowserException(browser + "is not configured in the framework");
         }
@@ -111,30 +124,32 @@ public class WebDriverFactory {
     private WebDriver getRemoteDriver(Browser browser, URL hubHost) {
         switch (browser) {
             case CHROME:
-                return new RemoteWebDriver(hubHost, chromeCapabilities(false));
+                return new RemoteWebDriver(hubHost, chromeOptions(false));
             case IE:
-                return new RemoteWebDriver(hubHost, ieCapabilities());
+                return new RemoteWebDriver(hubHost, ieOptions());
             case EDGE:
-                return new RemoteWebDriver(hubHost, edgeCapabilities());
+                return new RemoteWebDriver(hubHost, edgeOptions());
             case FIREFOX:
-                return new RemoteWebDriver(hubHost, firefoxCapabilities());
+                return new RemoteWebDriver(hubHost, firefoxOptions());
             case HEADLESS:
-                return new RemoteWebDriver(hubHost, chromeCapabilities(true));
+                return new RemoteWebDriver(hubHost, chromeOptions(true));
             case MOBILE_EMULATOR_CHROME:
-                return new RemoteWebDriver(hubHost, chromeMobileCapabilities(deviceName));
-            case TABLET_EMULATOR_CHROME:
-                return new RemoteWebDriver(hubHost, chromeTabletCapabilities());
+                return new RemoteWebDriver(hubHost, chromeMobileOptions(deviceName, deviceWidth, deviceHeight, devicePixelRatio, deviceUserAgent));
             default:
                 throw new UnknownBrowserException(browser + "is not configured in the framework");
         }
     }
 
-    private DesiredCapabilities chromeCapabilities(boolean isHeadless) {
+    private ChromeOptions chromeOptions(boolean isHeadless) {
+        ChromeOptions options = new ChromeOptions();
+
         DesiredCapabilities desiredCapabilities = DesiredCapabilities.chrome();
 
         desiredCapabilities.setVersion(version);
         desiredCapabilities.setBrowserName(browserName);
         desiredCapabilities.setPlatform(Platform.fromString(platform));
+
+        options.merge(desiredCapabilities);
 
         HashMap<String, Object> preferences = new HashMap<>();
 
@@ -142,18 +157,18 @@ public class WebDriverFactory {
         preferences.put("profile.default_content_settings.popups", 0);
         preferences.put("download.default_directory", downloadDirectory);
 
-        ChromeOptions chromeOptions = new ChromeOptions();
-        chromeOptions.setExperimentalOption("prefs", preferences);
+        options.setExperimentalOption("prefs", preferences);
 
         if (isHeadless) {
-            chromeOptions.addArguments("headless");
+            options.addArguments("headless");
         }
 
-        desiredCapabilities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
-        return desiredCapabilities;
+        return options;
     }
 
-    private DesiredCapabilities ieCapabilities() {
+    private InternetExplorerOptions ieOptions() {
+        InternetExplorerOptions options = new InternetExplorerOptions();
+
         DesiredCapabilities desiredCapabilities = DesiredCapabilities.internetExplorer();
 
         desiredCapabilities.setVersion(version);
@@ -164,42 +179,65 @@ public class WebDriverFactory {
         desiredCapabilities.setCapability(InternetExplorerDriver.IGNORE_ZOOM_SETTING, true);
         desiredCapabilities.setCapability(InternetExplorerDriver.NATIVE_EVENTS, false);
         desiredCapabilities.setCapability(InternetExplorerDriver.IE_ENSURE_CLEAN_SESSION, true);
-        return desiredCapabilities;
+
+        options.merge(desiredCapabilities);
+
+        return options;
     }
 
-    private DesiredCapabilities edgeCapabilities() {
+    private EdgeOptions edgeOptions() {
         DesiredCapabilities desiredCapabilities = DesiredCapabilities.edge();
-        return desiredCapabilities;
+
+        EdgeOptions edgeOptions = new EdgeOptions();
+
+        edgeOptions.merge(desiredCapabilities);
+
+        return edgeOptions;
     }
 
-    private DesiredCapabilities firefoxCapabilities() {
+    private FirefoxOptions firefoxOptions() {
         DesiredCapabilities desiredCapabilities = DesiredCapabilities.firefox();
         FirefoxProfile profile = new FirefoxProfile();
         desiredCapabilities.setCapability(FirefoxDriver.PROFILE, profile);
-        return desiredCapabilities;
+
+        FirefoxOptions options = new FirefoxOptions();
+
+        options.merge(desiredCapabilities);
+
+        return options;
     }
 
-    private DesiredCapabilities chromeMobileCapabilities(String deviceName) {
-        Map<String, Object> mobileEmulation = new HashMap<>();
-        mobileEmulation.put("deviceName", deviceName);
-
-        Map<String, Object> chromeOptions = new HashMap<>();
-        chromeOptions.put("mobileEmulation", mobileEmulation);
-        DesiredCapabilities capabilities = DesiredCapabilities.chrome();
-        capabilities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
-
-        return capabilities;
-    }
-
-    private DesiredCapabilities chromeTabletCapabilities() {
-        String userAgent = "Mozilla/5.0 (iPad; U; CPU OS 3_2 like Mac OS X; en-us) AppleWebKit/531.21.10 " +
-                "(KHTML, like Gecko) Version/4.0.4 Mobile/7B334b Safari/531.21.10";
+    private ChromeOptions chromeMobileOptions(String deviceName, String deviceWidth, String deviceHeight, String devicePixelRatio, String deviceUserAgent) {
         ChromeOptions options = new ChromeOptions();
-        options.addArguments("--user-agent=" + userAgent);
-        options.addArguments("window-size=1039,859");
-        DesiredCapabilities capabilities = DesiredCapabilities.chrome();
-        capabilities.setCapability(ChromeOptions.CAPABILITY, options);
 
-        return capabilities;
+        Map<String, Object> mobileEmulation = new HashMap<>();
+
+        if (!deviceName.isEmpty()) {
+            mobileEmulation.put("deviceName", deviceName);
+        } else {
+            Map<String, Object> deviceMetrics = new HashMap<>();
+
+            if (!deviceWidth.isEmpty()) {
+                deviceMetrics.put("width", Integer.valueOf(deviceWidth));
+            }
+
+            if (!deviceHeight.isEmpty()) {
+                deviceMetrics.put("height", Integer.valueOf(deviceHeight));
+            }
+
+            if (!devicePixelRatio.isEmpty()) {
+                deviceMetrics.put("pixelRatio",Double.valueOf(devicePixelRatio));
+            }
+
+            mobileEmulation.put("deviceMetrics", deviceMetrics);
+
+            if (!deviceUserAgent.isEmpty()) {
+                mobileEmulation.put("userAgent", deviceUserAgent);
+            }
+        }
+
+        options.setExperimentalOption("mobileEmulation", mobileEmulation);
+
+        return options;
     }
 }
