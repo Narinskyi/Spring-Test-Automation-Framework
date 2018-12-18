@@ -7,7 +7,6 @@ import org.openqa.selenium.By;
 import org.testng.Assert;
 import ru.yandex.qatools.allure.annotations.Step;
 
-
 @PageObjectClass
 public class CarDetailsPage extends AbstractPage {
 
