@@ -143,7 +143,7 @@ public class WebDriverFactory {
     private ChromeOptions chromeOptions(boolean isHeadless) {
         ChromeOptions options = new ChromeOptions();
 
-        DesiredCapabilities desiredCapabilities = DesiredCapabilities.chrome();
+        DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
 
         desiredCapabilities.setVersion(version);
         desiredCapabilities.setBrowserName(browserName);
