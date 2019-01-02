@@ -40,7 +40,7 @@ public abstract class Request {
     private UrlResolver urlResolver;
 
     @Step("Sending request")
-    public <T extends Response> T sendAndExpect(Class<T> responseClass) {
+    public synchronized <T extends Response> T sendAndExpect(Class<T> responseClass) {
 
         T response = null;
 
